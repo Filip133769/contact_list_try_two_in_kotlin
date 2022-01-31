@@ -1,11 +1,13 @@
 class Person(var firstname: String, var surname: String, var phonenumber: String, var email: String)
 {
     init {
-        this.firstname = firstname
-        this.surname = surname
-        this.phonenumber = phonenumber
-        this.email = email
+        firstname = readln()
+        surname = readln()
+        phonenumber = readln()
+        email = readln()
 
         println("Kontakt skapad")
     }
+
+
 }

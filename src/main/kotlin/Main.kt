@@ -1,10 +1,30 @@
+import java.io.File
+import java.io.PrintWriter
+import java.io.InputStream
 val informationlist = ArrayList<Person>()
-var name: String = readln()
-var Lastname: String = readln()
-var phonenumber: String = readln()
-var email: String= readln()
+var name: String = null.toString()
+var Lastname: String = null.toString()
+var phonenumber: String = null.toString()
+var email: String = null.toString()
+var choice: String = null.toString()
+var choice2: String = null.toString()
+var email_adress: String = null.toString()
+var new_surname: String = null.toString()
+var new_phonenumber: String = null.toString()
+var new_email_adress: String = null.toString()
+var filename = "file.txt"
+var myfile = File(filename)
+var content:String = null.toString()
 
-fun meny(args: Array<String>)
+fun printlist(){
+    for (elements in informationlist){
+        println(" Firstname:" + elements.firstname +
+                " Lastname:" + elements.surname + " " +
+                "phone-number" + elements.phonenumber +
+                " Email:" + elements.email)
+    }
+}
+fun meny()
 {
     println("1. Add contact" +
             "2. Remove contact" +
@@ -17,54 +37,138 @@ fun meny(args: Array<String>)
 
 fun show_contacts()
 {
-    for (elements in informationlist){
-        println(" Firstname:" + elements.firstname +
-                " Lastname:" + elements.surname + " " +
-                "phone-number" + elements.phonenumber +
-                " Email:" + elements.email)
-    }
+    printlist()
 }
 
-fun add_contact(){
-    println("Please write name, lastname, phonenumber and email on individual lines to add a person. Iff succeded, skapad kontakt wil be displayed ")
+fun add_contact()
+{
+    println("Please write name, lastname, phone-number and email on individual lines to add a person. Iff succedded, skapad kontakt wil1 be displayed ")
     informationlist.add(Person(name, Lastname, phonenumber, email))
 }
 
 fun remove_contact()
 {
     println("Please write the email adress of the person that you arte trying to remove")
-    var email_adress: String = readln()
-    for (number: Int in 0..informationlist.count())
+    email_adress = readln()
+    for (number: Int in 0..informationlist.count()-1)
     {
-        if (email_adress == informationlist.)
+        if (email_adress == informationlist[number].email)
         {
             informationlist.removeAt(number)
         }
     }
 }
 
-fun Show_in_alphabeticall_order()
+fun Show_in_alphabetical_order()
 {
-    println()
+    val sortedList = informationlist.sortedWith(compareBy({ it.firstname }))
+    for (elements in sortedList)
+    {
+        printlist()
+    }
 }
 
-fun Read_to_file()
+fun Change_information_of_contact()
 {
-    //Help Jonas
+    println("Please write the email of the adress that you want to change!")
+    email_adress = readln()
+    for (number: Int in 0..informationlist.count()-1)
+    {
+        if (email_adress == informationlist[number].email)
+        {
+            println("the email is in the list and the information can be changed. What do you want to change?")
+        }
+        println("1. Change name" +
+                "2. Change surname" +
+                "3. Change phonenumber" +
+                "4. Change email")
 
+        fun change_name()
+        {
+            new_email_adress = readln()
+            informationlist[number].email = new_email_adress
+        }
+
+        fun change_Surname()
+        {
+            new_surname = readln()
+            informationlist[number].surname= new_surname
+        }
+
+        fun change_phonenumber()
+        {
+            new_phonenumber = readln()
+            informationlist[number].phonenumber = new_phonenumber
+        }
+
+        fun change_email()
+        {
+            new_email_adress = readln()
+            informationlist[number].email = new_email_adress
+        }
+
+        when(choice2.toInt())
+        {
+            1 -> change_name()
+            2 -> change_Surname()
+            3 -> change_phonenumber()
+            4 -> change_email()
+        }
+    }
 }
 
-fun Save_to_file()
+fun not_working(){
+    var content = informationlist.toArray()
+    val writer = PrintWriter("file.txt")
+    for (i in informationlist){
+        printlist()
+    }
+    writer.append(content.toString())
+    writer.close()
+}
+
+fun Read_from_file()
 {
-    //Help Jonas
+    val file = File("file.txt")
+    var ins:InputStream = file.inputStream()
+    System.out
+}
+
+fun Write_to_file()
+{
+    myfile.printWriter().use { out ->
+        for (number: Int in 0..informationlist.count()-1)
+        {
+            out.println(informationlist[number].firstname)
+            out.println(informationlist[number].surname)
+            out.println(informationlist[number].phonenumber)
+            out.println(informationlist[number].email)
+        }
+    }
+}
+
+fun choose_option()
+{
+    when(choice.toInt())
+    {
+        1 -> add_contact()
+        2 -> remove_contact()
+        3 -> Change_information_of_contact()
+        4 -> show_contacts()
+        5 -> Show_in_alphabetical_order()
+        6 -> Write_to_file()
+        7 -> Read_from_file()
+        else -> {
+            println("please choose a number between 1 and 7")
+        }
+    }
 }
 fun main(args: Array<String>)
 {
-
-
-
-    remove_contact()
-    add_contact()
-   show_contacts()
-
+    while (choice != 8.toString())
+    {
+        meny()
+        choice = readln()
+        choose_option()
+    }
 }
