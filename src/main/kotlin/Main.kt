@@ -1,6 +1,6 @@
 import java.io.File
 import java.io.PrintWriter
-import java.io.InputStream
+import java.io.BufferedReader
 val informationlist = ArrayList<Person>()
 var name: String = null.toString()
 var Lastname: String = null.toString()
@@ -117,35 +117,28 @@ fun Change_information_of_contact()
     }
 }
 
-fun not_working(){
-    var content = informationlist.toArray()
-    val writer = PrintWriter("file.txt")
-    for (i in informationlist){
-        printlist()
-    }
-    writer.append(content.toString())
-    writer.close()
-}
-
 fun Read_from_file()
 {
-    val file = File("file.txt")
-    var ins:InputStream = file.inputStream()
-    System.out
+    val bufferedReader: BufferedReader = File("file.txt").bufferedReader()
+    content = bufferedReader.use { it.readText() }
+    println(content)
 }
 
 fun Write_to_file()
 {
-    myfile.printWriter().use { out ->
+    File(filename).bufferedWriter()
+    File(filename).bufferedWriter().use { out ->
         for (number: Int in 0..informationlist.count()-1)
         {
-            out.println(informationlist[number].firstname)
-            out.println(informationlist[number].surname)
-            out.println(informationlist[number].phonenumber)
-            out.println(informationlist[number].email)
+            out.write(informationlist[number].firstname + "\b")
+            out.write(informationlist[number].surname + "\b")
+            out.write(informationlist[number].phonenumber + "\b")
+            out.write(informationlist[number].email + "\n")
         }
     }
+
 }
+
 
 fun choose_option()
 {
