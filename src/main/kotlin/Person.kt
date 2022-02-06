@@ -1,10 +1,10 @@
-class Person(var firstname: String, var surname: String, var phonenumber: String, var email: String)
+class Person(var Firstname: String, var Surname: String, var Phonenumber: String, var Email: String)
 {
     init {
-        firstname = readln()
-        surname = readln()
-        phonenumber = readln()
-        email = readln()
+        Firstname = readln()
+        Surname = readln()
+        Phonenumber = readln()
+        Email = readln()
 
         println("Kontakt skapad")
     }
